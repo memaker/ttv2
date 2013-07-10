@@ -1,88 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="description" content="<%= yield :subheading %>" />
-  <meta name="keywords" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <%= csrf_meta_tags %>
-
-  <!-- page specific plugin styles -->
-  <%= yield :page_styles %>
-
-  <!-- ace styles -->
-  <%= stylesheet_link_tag 'css/ace' %>
-
-  <!-- conditional styles -->
-  <!--[if IE 7]>
-  <%= stylesheet_link_tag 'css/font-awesome-ie7.min' %>
-  <![endif]-->
-  <!--[if lt IE 9]>
-  <%= stylesheet_link_tag 'css/ace-ie.css' %>
-  <![endif]-->
-
-  <title>
-    <% if content_for?(:title) %>
-      <%= yield :title %>
-    <% else %>
-      <%= yield :heading %> - Ace Admin
-    <% end %>
-  </title>
-</head>
-
-<body>
-
-<%= render 'layouts/navbar' %>
-
-<div class="container-fluid" id="main-container">
-  <a href="#" id="menu-toggler"><span></span></a><!-- menu toggler -->
-
-  <%= render 'layouts/sidebar' %>
-
-
-  <div id="main-content" class="clearfix">
-
-  <%= render 'layouts/breadcrumbs' %>
-
-    <div id="page-content" class="clearfix">
-
-      <% if content_for?(:heading) %>
-        <div class="page-header position-relative">
-          <h1><%= yield :heading %>
-            <% if content_for?(:subheading) %>
-              <small><i class="icon-double-angle-right"></i> <%= yield :subheading %></small>
-            <% end %>
-          </h1>
-        </div><!--/page-header-->
-      <% end %>
-
-      <div class="row-fluid">
-        <!-- PAGE CONTENT BEGINS HERE -->
-        <%= yield %>
-        <!-- PAGE CONTENT ENDS HERE -->
-      </div><!--/row-->
-
-    </div><!--/#page-content-->
-
-    <%= render 'layouts/ace_settings' %>
-
-  </div><!-- #main-content -->
-
-
-</div><!--/.fluid-container#main-container-->
-
-<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
-  <i class="icon-double-angle-up icon-only"></i>
-</a>
-
-<!-- basic scripts -->
-<%= javascript_include_tag 'js/ace' %>
-
-<!-- page specific plugin scripts -->
-<%= yield :plugin_js %>
-
-<!-- inline scripts related to this page -->
-<%= yield :inline_js %>
-
-</body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Ttv2" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Ttv2" %>">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+  </head>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <div class="navbar navbar-fixed-top">
+      <nav class="navbar-inner">
+        <div class="container">
+          <%= render 'layouts/navigation' %>
+        </div>
+      </nav>
+    </div>
+    <div id="main" role="main">
+      <div class="container">
+        <div class="content">
+           <div class="row">
+            <div class="span12">
+              <%= render 'layouts/messages' %>
+              <%= yield %>
+            </div>
+          </div>
+          <footer>
+          </footer>
+        </div>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+  </body>
 </html>
